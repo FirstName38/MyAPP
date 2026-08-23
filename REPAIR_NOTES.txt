@@ -1,0 +1,12 @@
+LumaAndroid repair notes
+
+Changes made:
+1. AndroidManifest.xml:
+   - LumaAccessibilityService android:exported changed from false to true.
+2. Added gradle/wrapper/gradle-wrapper.properties for Gradle 8.9.
+3. Added gradlew and gradlew.bat launchers.
+   - Note: a standard Gradle wrapper also requires gradle-wrapper.jar. GitHub Actions below intentionally uses installed Gradle 8.9, so the workflow does not depend on the wrapper JAR.
+4. Added/overwrote .github/workflows/build.yml to build the debug APK with JDK 17 and Gradle 8.9.
+5. QUERY_ALL_PACKAGES was not removed because removing it could break Luma's app-selection/focus functionality. It should be reviewed before a Google Play release.
+
+This repair does not claim that all runtime/compiler issues are solved without executing a full Android build.
