@@ -62,7 +62,7 @@ object LumaStore {
     fun focusMinutesForDate(date:String)=getFocusSessions().filter{it.date==date}.sumOf{it.minutes}
     fun focusSessionsForDate(date:String)=getFocusSessions().filter{it.date==date}
 
-    fun getBlockedApps():Set<String>=prefs.getStringSet("blocked_apps",emptySet())?:emptySet()
+    fun getBlockedApps(): Set<String> = prefs.getStringSet("blocked_apps", emptySet()) ?: emptySet()
     fun setBlockedApps(p:Set<String>){prefs.edit().putStringSet("blocked_apps",p).apply()}
     fun getApiKey()=prefs.getString("ai_api_key","")?:""
     fun setApiKey(k:String){prefs.edit().putString("ai_api_key",k).apply()}
