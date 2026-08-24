@@ -1,12 +1,23 @@
-LumaAndroid repair notes
+Luma enhanced v4
 
-Changes made:
-1. AndroidManifest.xml:
-   - LumaAccessibilityService android:exported changed from false to true.
-2. Added gradle/wrapper/gradle-wrapper.properties for Gradle 8.9.
-3. Added gradlew and gradlew.bat launchers.
-   - Note: a standard Gradle wrapper also requires gradle-wrapper.jar. GitHub Actions below intentionally uses installed Gradle 8.9, so the workflow does not depend on the wrapper JAR.
-4. Added/overwrote .github/workflows/build.yml to build the debug APK with JDK 17 and Gradle 8.9.
-5. QUERY_ALL_PACKAGES was not removed because removing it could break Luma's app-selection/focus functionality. It should be reviewed before a Google Play release.
+Implemented in this project:
+- Standard / ADHD / Custom / Stopwatch focus modes.
+- Focus -> Short Break -> Focus -> Long-cycle-ready architecture.
+- Start / Pause / Resume / Finish / Focus-Break controls.
+- Per-pause start/end/duration, total paused time and active time persisted.
+- Continuous looping focus/break sounds.
+- Separate focus, break and alarm sound categories.
+- Task dates, priorities, labels, descriptions and linked focus-session history.
+- Habit descriptions, labels, duration and day-by-day percentage completion.
+- Calendar day overview with tasks, habits, journal and focus data.
+- AI analysis screen with Anthropic API key/model settings.
+- Accessibility and usage-access settings shortcuts.
+- Camera permission and local preview in Focus Room.
+- Animation on/off setting.
+- Clock screen: countdown timer, stopwatch and alarm.
+- More aesthetic wallpapers.
 
-This repair does not claim that all runtime/compiler issues are solved without executing a full Android build.
+Important limitations:
+- True multi-user Focus Room/video calling requires a backend/signaling/WebRTC service and is not falsely represented as implemented.
+- Online sound search/streaming is not bundled because it requires a source/service and licensing; local device sound selection can be added without changing the timer architecture.
+- Build must be verified in Android/Gradle environment or GitHub Actions.

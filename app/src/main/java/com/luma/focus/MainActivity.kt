@@ -6,6 +6,8 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.horizontalScroll
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.CalendarMonth
 import androidx.compose.material.icons.filled.AutoAwesome
@@ -22,7 +24,7 @@ import com.luma.focus.data.LumaStore
 import com.luma.focus.ui.screens.*
 import com.luma.focus.ui.theme.*
 
-enum class Screen { FOCUS, TASKS, HABITS, JOURNAL, CALENDAR, FOCUS_ROOM, AI, SETTINGS }
+enum class Screen { FOCUS, TASKS, HABITS, JOURNAL, CALENDAR, CLOCK, FOCUS_ROOM, AI, SETTINGS }
 
 class MainActivity : ComponentActivity() {
 
@@ -54,6 +56,7 @@ fun LumaApp() {
         Screen.HABITS -> HabitsAccent
         Screen.JOURNAL -> JournalAccent
         Screen.CALENDAR -> CalendarAccent
+        Screen.CLOCK -> FocusAccent
         Screen.FOCUS_ROOM -> FocusRoomAccent
         Screen.AI -> FocusAccent
         Screen.SETTINGS -> SettingsAccent
@@ -63,7 +66,7 @@ fun LumaApp() {
         Scaffold(
             containerColor = LumaBackground,
             bottomBar = {
-                NavigationBar(containerColor = LumaSurface) {
+                NavigationBar(containerColor = LumaSurface, modifier = Modifier.horizontalScroll(rememberScrollState())) {
                     NavigationBarItem(
                         selected = screen == Screen.FOCUS,
                         onClick = { screen = Screen.FOCUS },
@@ -95,6 +98,12 @@ fun LumaApp() {
                         label = { Text("Calendar") }
                     )
                     NavigationBarItem(
+                        selected = screen == Screen.CLOCK,
+                        onClick = { screen = Screen.CLOCK },
+                        icon = { Icon(Icons.Filled.PlayArrow, contentDescription = "Clock") },
+                        label = { Text("Clock") }
+                    )
+                    NavigationBarItem(
                         selected = screen == Screen.FOCUS_ROOM,
                         onClick = { screen = Screen.FOCUS_ROOM },
                         icon = { Icon(Icons.Filled.Videocam, contentDescription = "Focus Room") },
@@ -122,6 +131,7 @@ fun LumaApp() {
                     Screen.HABITS -> HabitsScreen(accent)
                     Screen.JOURNAL -> JournalScreen(accent)
                     Screen.CALENDAR -> CalendarScreen(accent)
+                    Screen.CLOCK -> ClockScreen(accent)
                     Screen.FOCUS_ROOM -> FocusRoomScreen(accent)
                     Screen.AI -> AiScreen(accent)
                     Screen.SETTINGS -> SettingsScreen(accent)

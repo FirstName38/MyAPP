@@ -23,6 +23,7 @@ fun SettingsScreen(accent: Color) {
     var model by remember { mutableStateOf(LumaStore.getAiModel()) }
     var sectionWp by remember { mutableStateOf(LumaStore.getSectionWallpaper("settings")) }
     var showApps by remember { mutableStateOf(false) }
+    var animations by remember { mutableStateOf(LumaStore.animationsEnabled()) }
 
     if (showApps) {
         AppControlScreen(accent) { showApps = false }
@@ -103,6 +104,17 @@ fun SettingsScreen(accent: Color) {
                 onClick = { context.startActivity(Intent(Settings.ACTION_USAGE_ACCESS_SETTINGS)) },
                 modifier = Modifier.padding(top = 6.dp)
             ) { Text("Enable Usage Access") }
+        }
+
+        SettingGroup(
+            title = "Motion & appearance",
+            description = "Use gentle motion and micro-interactions, or turn animation off for a calmer interface."
+        ) {
+            Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
+                Text("Animations", color = LumaTextPrimary)
+                Switch(checked = animations, onCheckedChange = { animations = it; LumaStore.setAnimationsEnabled(it) })
+            }
+            Text("Animation setting is saved on this device.", color = LumaTextSecondary, fontSize = 11.sp)
         }
 
         SettingGroup(
